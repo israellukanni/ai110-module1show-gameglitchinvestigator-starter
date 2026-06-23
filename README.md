@@ -25,28 +25,43 @@ It wrote the code, ran away, and now the game is unplayable.
 
 ## 📝 Document Your Experience
 
-- [ ] Describe the game's purpose.
-- [ ] Detail which bugs you found.
-- [ ] Explain what fixes you applied.
+The game is a number guessing game where you try to guess a secret number within a set number of attempts. Each guess gives you a hint telling you to go higher or lower, and your score goes up when you win depending on how fast you guessed.
+
+When I first ran it the game looked fine but once I started playing I noticed a lot of things were off. The hints were completely backwards, so if I guessed too high it would tell me to go higher which made it impossible to win. The difficulty ranges also didn't make sense because Hard was 1-50 and Normal was 1-100, so Hard was actually easier. On top of that the scoring had a bug where it was penalizing one extra attempt and guessing Too High on even attempts was somehow giving you points instead of taking them away.
+
+To fix everything I moved all the logic into `logic_utils.py`, swapped the hints so they're correct, fixed the difficulty ranges so they actually get harder, fixed the score formula, and made sure Too High always deducts points. I also used Claude to help generate tests for the functions so I could verify each fix was actually working.
 
 ## 📸 Demo Walkthrough
 
-Describe your fixed game in numbered steps so a reader can follow along without watching a video:
-
-1. <!-- Describe this step -->
-2. <!-- Describe this step -->
-3. <!-- Describe this step -->
-4. <!-- Describe this step -->
-5. <!-- Add more steps as needed -->
+1. Player selects Normal difficulty (range: 1–50, 8 attempts allowed)
+2. Player guesses 25, game returns "📉 Go LOWER!" and score drops by 5
+3. Player guesses 10, game returns "📈 Go HIGHER!" and score drops by 5
+4. Player guesses 18, game returns "📉 Go LOWER!" and score drops by 5
+5. Player guesses 14, game returns "📈 Go HIGHER!" and score drops by 5
+6. Player guesses 16, game returns "🎉 Correct!" on attempt 5
+7. Score updates: 100 - 10×5 = 50 points awarded on top of current score
+8. Balloons pop and the game shows "You won! The secret was 16. Final score: 30"
 
 **Screenshot** *(optional)*: <!-- Insert a screenshot of your fixed, winning game here -->
 
 ## 🧪 Test Results
 
 ```
-# Paste your pytest output here, e.g.:
-# pytest tests/
-# ========================= X passed in 0.XXs =========================
+============================= test session starts ==============================
+platform darwin -- Python 3.13.7, pytest-9.0.3, pluggy-1.6.0
+rootdir: /Users/israelolukanni/Desktop/codepath-aiengineering/ai110-module1show-gameglitchinvestigator-starter
+plugins: anyio-4.13.0
+collecting ... collected 7 items
+
+tests/test_game_logic.py::test_winning_guess PASSED                      [ 14%]
+tests/test_game_logic.py::test_guess_too_high PASSED                     [ 28%]
+tests/test_game_logic.py::test_guess_too_low PASSED                      [ 42%]
+tests/test_game_logic.py::test_win_score_uses_actual_attempt_number PASSED [ 57%]
+tests/test_game_logic.py::test_too_high_always_deducts_on_even_attempt PASSED [ 71%]
+tests/test_game_logic.py::test_parse_guess_rejects_decimal_string PASSED [ 85%]
+tests/test_game_logic.py::test_difficulty_ranges_increase_with_difficulty PASSED [100%]
+
+============================== 7 passed in 0.03s ==============================
 ```
 
 ## 🚀 Stretch Features
