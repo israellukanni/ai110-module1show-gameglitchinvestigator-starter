@@ -62,5 +62,8 @@ Streamlit doesn't run like a tradition webapp and wipes the variables each it is
 
 - What is one habit or strategy from this project that you want to reuse in future labs or projects?
   - This could be a testing habit, a prompting strategy, or a way you used Git.
+  I want to use a system for logging errors. I think this really help the AI know exactly what's going and gives it a better idea on how to approach it. It also helps to visual the problem both before and after the bug is fixed.
 - What is one thing you would do differently next time you work with AI on a coding task?
+I will use clearly more concise prompts and also make use of AI for commit messages(this is a life saver).
 - In one or two sentences, describe how this project changed the way you think about AI generated code.
+This project helped me to realize how important it is to examine and evaluate the code. It also helped me to realize how it is a collaborative process. The AI may not always have the right solution so it is up to us to guide it to the right solution and ensure that it implements it correctly.
